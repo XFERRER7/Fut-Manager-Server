@@ -1,4 +1,4 @@
-import express, { Router } from "express";
+import express, { Request, Response, Router } from "express";
 import multer from "multer";
 import { ensureAuthenticated } from "./middlewares/ensureAuthenticated";
 import { multerConfigPlayer } from "./middlewares/multerConfigPlayer";
@@ -30,13 +30,17 @@ const uploadPlayer = multer({ storage: multerConfigPlayer.storage })
 
 
 router.post('/create-team', [ensureAuthenticated, uploadTeam.single('shield')], createTeam.handle)
-router.get('/get-team/:id', ensureAuthenticated, getTeam.handle)
+router.get('/get-team/:id', getTeam.handle)
 
 router.post('/create-player', [ensureAuthenticated, uploadPlayer.single('photo')], createPlayer.handle)
 router.get('/get-player/:id', ensureAuthenticated, getPlayerById.handle)
 router.get('/get-players/:teamId', ensureAuthenticated, getPlayerByTeam.handle)
 router.patch('/update-player', ensureAuthenticated,updatePlayer.handle)
 router.delete('/delete-player/:id', ensureAuthenticated, deletePlayer.handle)
+
+router.get('/hello', (req: Request, res: Response) => {
+  return res.json({ message: 'Hello World' })
+})
 
 router.post('/create-user', createUser.handle)
 router.post('/authenticate-user', authentiocateUser.handle)
