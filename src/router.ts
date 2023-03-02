@@ -12,6 +12,7 @@ import { createTeamController } from "./useCases/team/createTeam/createTeamContr
 import { GetTeamController } from "./useCases/team/getTeam/GetTeamController";
 import { AuthenticateUserController } from "./useCases/user/authenticateUser/controller";
 import { CreateUserController } from "./useCases/user/createUser/controller";
+import { GetDataUserController } from "./useCases/user/getDataUser/controller";
 
 export const router = Router()
 
@@ -24,6 +25,7 @@ const createUser = new CreateUserController()
 const authentiocateUser = new AuthenticateUserController()
 const updatePlayer = new UpdatePlayerController()
 const deletePlayer = new DeletePlayerController()
+const getDataUser = new GetDataUserController()
 
 const uploadTeam = multer({ storage: multerConfigTeam.storage })
 const uploadPlayer = multer({ storage: multerConfigPlayer.storage })
@@ -38,9 +40,7 @@ router.get('/get-players/:teamId', ensureAuthenticated, getPlayerByTeam.handle)
 router.patch('/update-player', ensureAuthenticated,updatePlayer.handle)
 router.delete('/delete-player/:id', ensureAuthenticated, deletePlayer.handle)
 
-router.get('/hello', (req: Request, res: Response) => {
-  return res.json({ message: 'Hello World' })
-})
 
 router.post('/create-user', createUser.handle)
 router.post('/authenticate-user', authentiocateUser.handle)
+router.get('/get-user/:id', ensureAuthenticated, getDataUser.handle)
