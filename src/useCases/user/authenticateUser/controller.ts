@@ -10,12 +10,12 @@ export class AuthenticateUserController {
 
     const authenticateUserUseCase = new AuthenticateUserUseCase()
 
-    const token = await authenticateUserUseCase.execute({
+    const user = await authenticateUserUseCase.execute({
       email,
       password
     })
 
-    return res.status(200).json(token)
+    return res.status(200).json(user)
 
   }
 

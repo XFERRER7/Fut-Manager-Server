@@ -41,8 +41,9 @@ export class AuthenticateUserUseCase {
     })
 
     const idUser = userExists.id
+    const name = userExists.name
 
-    return { token, idUser }
+    return { token, idUser, name }
 
   }
 
